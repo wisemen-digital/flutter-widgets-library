@@ -1,0 +1,6 @@
+output-class: SwlTemp
+template-arb-file: intl_en.arb
+preferred-supported-locales: en
+output-localization-file: swl_localizations.dart
+synthetic-package: false # important, if you want to import the delegate in another package or app
+output-dir: lib\generated
