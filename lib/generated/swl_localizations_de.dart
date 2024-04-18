@@ -26,10 +26,12 @@ class SwlTempDe extends SwlTemp {
   String get close => 'Schließen';
 
   @override
-  String get networkErrorSomethingWentWrong => 'Etwas ist schiefgelaufen, bitte versuchen Sie es später erneut.';
+  String get networkErrorSomethingWentWrong =>
+      'Etwas ist schiefgelaufen, bitte versuchen Sie es später erneut.';
 
   @override
-  String get networkErrorNoInternetConnection => 'Überprüfen Sie Ihre Internetverbindung.';
+  String get networkErrorNoInternetConnection =>
+      'Überprüfen Sie Ihre Internetverbindung.';
 
   @override
   String get networkErrorNoAuthentication => 'Sie sind nicht authentifiziert.';
@@ -38,16 +40,20 @@ class SwlTempDe extends SwlTemp {
   String get errorDefault => 'Etwas ist schiefgelaufen.';
 
   @override
-  String get internetConnectionError => 'Überprüfen Sie, ob Sie eine funktionierende Netzwerkverbindung haben.';
+  String get internetConnectionError =>
+      'Überprüfen Sie, ob Sie eine funktionierende Netzwerkverbindung haben.';
 
   @override
-  String get internetCertificateConnectionError => 'Sie sind mit einem unsicheren Netzwerk verbunden.';
+  String get internetCertificateConnectionError =>
+      'Sie sind mit einem unsicheren Netzwerk verbunden.';
 
   @override
-  String get internalServerError => 'Mit dem Server stimmt etwas nicht. Bitte versuchen Sie es später erneut.';
+  String get internalServerError =>
+      'Mit dem Server stimmt etwas nicht. Bitte versuchen Sie es später erneut.';
 
   @override
-  String get loginError => 'Etwas ist bei der Authentifizierung der App schiefgelaufen, bitte versuchen Sie es später erneut.';
+  String get loginError =>
+      'Etwas ist bei der Authentifizierung der App schiefgelaufen, bitte versuchen Sie es später erneut.';
 
   @override
   String get search => 'Suchen';
@@ -68,7 +74,8 @@ class SwlTempDe extends SwlTemp {
   String get fieldRequired => 'Dieses Feld ist erforderlich';
 
   @override
-  String get passwordSubtext => 'Das Passwort muss mindestens 8 Zeichen, 1 Ziffer und 1 Symbol enthalten';
+  String get passwordSubtext =>
+      'Das Passwort muss mindestens 8 Zeichen, 1 Ziffer und 1 Symbol enthalten';
 
   @override
   String get emailValidation => 'Die E-Mail-Adresse ist ungültig';
