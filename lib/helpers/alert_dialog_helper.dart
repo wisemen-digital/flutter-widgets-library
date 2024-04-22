@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +51,10 @@ Future<void> showPlatformAlertDialog({
 
 Future<void> showPlatformConfirmAlertDialog({
   required BuildContext context,
-  required void Function() confirmAction,
+  required FutureOr<void> Function() confirmAction,
   String? title,
   String? subtitle,
-  void Function()? cancelAction,
+  FutureOr<void> Function()? cancelAction,
   bool isDismissable = true,
   bool isDelete = true,
   String? cancelTitle,
@@ -68,15 +68,17 @@ Future<void> showPlatformConfirmAlertDialog({
     actions: [
       MaterialButton(
         padding: kIsWeb ? const EdgeInsets.all(20) : null,
-        onPressed: cancelAction ??
-            () {
-              Navigator.of(context, rootNavigator: true).pop();
-            },
         child: Text(cancelTitle ?? Swl.of(context).cancel),
+        onPressed: () async {
+          if (cancelAction != null) {
+            await cancelAction();
+          } else {
+            Navigator.of(context, rootNavigator: true).pop();
+          }
+        },
       ),
       MaterialButton(
         padding: kIsWeb ? const EdgeInsets.all(20) : null,
-        onPressed: confirmAction,
         child: Text(
           confirmTitle ??
               (isDelete ? Swl.of(context).delete : Swl.of(context).yes),
@@ -84,6 +86,10 @@ Future<void> showPlatformConfirmAlertDialog({
               ? const TextStyle(color: CupertinoColors.destructiveRed)
               : null,
         ),
+        onPressed: () async {
+          Navigator.of(context, rootNavigator: true).pop();
+          await confirmAction();
+        },
       ),
     ],
     isDismissable: isDismissable,

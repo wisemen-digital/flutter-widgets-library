@@ -53,6 +53,8 @@ class ValidatedTextFormField extends ConsumerWidget {
     this.readOnly = false,
     this.autovalidateMode,
     this.onTapOutside,
+    this.cursorColor,
+    this.iconSize = 19,
   });
 
   final void Function(String)? onChanged;
@@ -85,6 +87,8 @@ class ValidatedTextFormField extends ConsumerWidget {
   final bool readOnly;
   final AutovalidateMode? autovalidateMode;
   final void Function(PointerDownEvent)? onTapOutside;
+  final Color? cursorColor;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,6 +97,7 @@ class ValidatedTextFormField extends ConsumerWidget {
       alignment: Alignment.centerRight,
       children: [
         TextFormField(
+          cursorColor: cursorColor,
           keyboardType: keyboardType,
           onFieldSubmitted: onFieldSubmitted,
           initialValue: initialValue,
@@ -165,14 +170,14 @@ class ValidatedTextFormField extends ConsumerWidget {
                 ? SvgPicture.asset(
                     hidePasswordIcon,
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                    height: 19,
-                    width: 19,
+                    height: iconSize,
+                    width: iconSize,
                   )
                 : SvgPicture.asset(
                     showPasswordIcon,
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                    height: 19,
-                    width: 19,
+                    height: iconSize,
+                    width: iconSize,
                   ),
             splashColor: Colors.transparent,
             onPressed: () => ref.read(passwordProvider.notifier).toggleValue(),

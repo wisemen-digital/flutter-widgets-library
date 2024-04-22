@@ -1,3 +1,8 @@
+## 1.0.4
+
+* added `cursorColor` and `iconSize` to `ValidatedTextFormField` 
+* fixed bug where dialog was not popped when using the `showPlatformConfirmAlertDialog`
+
 ## 1.0.3
 
 * Moved repo and updated packages
