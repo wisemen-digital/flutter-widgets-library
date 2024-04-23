@@ -1,3 +1,7 @@
+## 1.0.5
+
+* updated packages
+
 ## 1.0.4
 
 * added `cursorColor` and `iconSize` to `ValidatedTextFormField` 
