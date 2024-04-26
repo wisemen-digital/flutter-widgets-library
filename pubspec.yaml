@@ -43,6 +43,9 @@ dependencies:
   # Animations
   page_transition: ^2.1.0
 
+  # Conditional wrap
+  conditional_wrap: ^3.0.0
+
 dev_dependencies:
   # Code generation
   build_runner: ^2.4.9
