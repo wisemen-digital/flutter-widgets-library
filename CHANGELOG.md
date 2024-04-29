@@ -1,3 +1,7 @@
+## 1.0.6
+
+* added fontsize option to bottom nav bar
+
 ## 1.0.5
 
 * updated packages
