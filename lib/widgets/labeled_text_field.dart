@@ -5,8 +5,7 @@ import 'package:conditional_wrap/conditional_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:wisewidgetslibrary/wise_widgets_library.dart';
+import 'package:wisewidgetslibrary/constants/constants.dart';
 
 class LabeledTextField extends ConsumerWidget {
   const LabeledTextField({

@@ -11,12 +11,16 @@ class PlatformBottomBar extends PlatformWidget<CupertinoTabBar, Widget> {
     required this.inActiveColor,
     super.key,
     this.activeColor,
+    this.selectedFontSize = 14.0,
+    this.unselectedFontSize = 12.0,
   });
   final List<BottomNavigationBarItem> items;
   final void Function(int) onTap;
   final int currentIndex;
   final Color? activeColor;
   final Color? inActiveColor;
+  final double selectedFontSize;
+  final double unselectedFontSize;
 
   @override
   CupertinoTabBar createCupertinoWidget(BuildContext context) =>
@@ -39,5 +43,7 @@ class PlatformBottomBar extends PlatformWidget<CupertinoTabBar, Widget> {
         unselectedItemColor: inActiveColor,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
+        selectedFontSize: selectedFontSize,
+        unselectedFontSize: unselectedFontSize,
       );
 }
