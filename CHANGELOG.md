@@ -1,3 +1,8 @@
+## 1.0.7
+
+* updated `ValidatedTextFormField` to show correct label placement depending on Platform
+* added `LabeledTextField` to show correct label placement depending on Platform
+
 ## 1.0.6
 
 * added fontsize option to bottom nav bar
