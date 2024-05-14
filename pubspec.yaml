@@ -1,6 +1,6 @@
 name: wisewidgetslibrary
 description: Wisemen widgets library containing platform specific widgets and other commonly useful widgets.
-version: 1.0.7
+version: 1.0.8
 homepage: https://github.com/wisemen-digital/flutter-widgets-library
 repository: https://github.com/wisemen-digital/flutter-widgets-library
 
@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.18.1
+  intl: ^0.19.0
 
   # Data
   json_annotation: ^4.8.1
@@ -55,9 +55,9 @@ dev_dependencies:
     sdk: flutter
 
   # Static analysis & linting
-  flutter_lints: ^3.0.2
+  flutter_lints: ^4.0.0
   custom_lint: ^0.6.4
-  dependency_validator: ^3.2.3
+  dependency_validator: ^4.0.0
 
   # Data
   json_serializable: ^6.7.1

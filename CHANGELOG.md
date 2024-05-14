@@ -1,3 +1,7 @@
+## 1.0.8
+
+* updated packages
+
 ## 1.0.7
 
 * updated `ValidatedTextFormField` to show correct label placement depending on Platform
