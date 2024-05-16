@@ -57,6 +57,8 @@ class ValidatedTextFormField extends ConsumerWidget {
     this.label,
     this.labelStyle,
     this.showAndroidLabel = false,
+    this.minLines,
+    this.maxLines,
   });
 
   final void Function(String)? onChanged;
@@ -94,6 +96,8 @@ class ValidatedTextFormField extends ConsumerWidget {
   final String? label;
   final TextStyle? labelStyle;
   final bool showAndroidLabel;
+  final int? minLines;
+  final int? maxLines;
 
   bool get showCupertinoLabel => isIos && label != null && !showAndroidLabel;
 
@@ -154,6 +158,8 @@ class ValidatedTextFormField extends ConsumerWidget {
             style: style,
             autovalidateMode: autovalidateMode,
             onTapOutside: onTapOutside,
+            minLines: minLines,
+            maxLines: maxLines,
             validator: (value) {
               //* Value null check:
               if (value == null) {

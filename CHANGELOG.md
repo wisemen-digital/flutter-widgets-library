@@ -1,3 +1,7 @@
+## 1.0.9
+
+* added `minLines` and `maxLines` to `ValidatedTextFormField`
+
 ## 1.0.8
 
 * updated packages
