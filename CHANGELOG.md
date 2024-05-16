@@ -1,3 +1,7 @@
+## 1.0.10
+
+* added maxLines to 1 in constructor for `ValidatedTextFormField`
+
 ## 1.0.9
 
 * added `minLines` and `maxLines` to `ValidatedTextFormField`
