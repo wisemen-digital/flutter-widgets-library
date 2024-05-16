@@ -58,7 +58,7 @@ class ValidatedTextFormField extends ConsumerWidget {
     this.labelStyle,
     this.showAndroidLabel = false,
     this.minLines,
-    this.maxLines,
+    this.maxLines = 1,
   });
 
   final void Function(String)? onChanged;
