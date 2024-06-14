@@ -19,7 +19,7 @@ class ShowPassword extends _$ShowPassword {
   void toggleValue() => state = !state;
 }
 
-class ValidatedTextFormField extends ConsumerWidget {
+class ValidatedTextFormField extends HookConsumerWidget {
   const ValidatedTextFormField({
     super.key,
     this.decoration = const InputDecoration(),
@@ -110,6 +110,11 @@ class ValidatedTextFormField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final passwordProvider = showPasswordProvider(key: key);
+
+    void togglePassword() {
+      ref.read(passwordProvider.notifier).toggleValue();
+    }
+
     return WidgetWrapper(
       wrapper: (child) {
         if (showCupertinoLabel) {
@@ -129,112 +134,105 @@ class ValidatedTextFormField extends ConsumerWidget {
           return child;
         }
       },
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          TextFormField(
-            cursorColor: cursorColor,
-            keyboardType: _getKeyboardType(),
-            textCapitalization: textCapitalization,
-            textInputAction: textInputAction,
-            onFieldSubmitted: (text) => onFieldSubmitted?.call(text, ref),
-            initialValue: initialValue,
-            focusNode: focusNode,
-            enabled: !disabled,
-            onEditingComplete: onEditingComplete,
-            onChanged: onChanged,
-            controller: controller,
-            decoration: decoration.copyWith(
-              errorStyle: hideErrorText ? const TextStyle(height: 0) : null,
-              label: showAndroidLabel && label != null ? Text(label!) : null,
-              labelStyle: _labelStyle(
-                context,
-              ),
-              floatingLabelStyle: _labelStyle(
-                context,
-              ),
-            ),
-            readOnly: readOnly,
-            inputFormatters: inputFormatters,
-            obscureText: isPassword ? !ref.watch(passwordProvider) : isPassword,
-            scrollPadding: scrollPadding,
-            style: style,
-            autovalidateMode: autovalidateMode,
-            onTapOutside: onTapOutside,
-            minLines: minLines,
-            maxLines: maxLines,
-            validator: (value) {
-              //* Value null check:
-              if (value == null) {
-                return Swl.of(context).fieldRequired;
-              }
-
-              //* If non-required value is empty
-              if (!isRequired && value.isEmpty) {
-                return null;
-              }
-
-              //* Empty validation check:
-              if (value.isEmpty) {
-                return Swl.of(context).fieldRequired;
-              }
-
-              //* Email validation:
-              if (isEmail) {
-                if (!EmailValidator.validate(value)) {
-                  return Swl.of(context).emailValidation;
-                }
-              }
-              //* Phone number validation:
-              if (isPhoneNumber) {
-                if (!RegExp(
-                  r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$',
-                ).hasMatch(value)) {
-                  return Swl.of(context).phoneNumberIsInvalid;
-                }
-              }
-              //* Password validation:
-              if (isPassword && (passwordValidation == null)) {
-                if (value.length < minimumPasswordLength) {
-                  return Swl.of(context).passwordIsTooShort;
-                }
-              } else if (isPassword && (passwordValidation != null)) {
-                return passwordValidation!(value);
-              }
-              //* Custom validation
-              if (customValidation != null) {
-                return customValidation!(value);
-              }
-              return null;
-            },
+      child: TextFormField(
+        cursorColor: cursorColor,
+        keyboardType: _getKeyboardType(),
+        textCapitalization: _getTextCapitalization(),
+        textInputAction: textInputAction,
+        onFieldSubmitted: (text) => onFieldSubmitted?.call(text, ref),
+        initialValue: initialValue,
+        focusNode: focusNode,
+        enabled: !disabled,
+        onEditingComplete: onEditingComplete,
+        onChanged: onChanged,
+        controller: controller,
+        decoration: decoration.copyWith(
+          errorStyle: hideErrorText ? const TextStyle(height: 0) : null,
+          label: showAndroidLabel && label != null ? Text(label!) : null,
+          labelStyle: _labelStyle(
+            context,
           ),
-          if (isPassword && showObscureIcon)
-            Positioned(
-              top: 20,
-              bottom: 0,
-              child: IconButton(
-                hoverColor: Colors.transparent,
-                icon: ref.watch(passwordProvider)
-                    ? SvgPicture.asset(
-                        hidePasswordIcon,
-                        colorFilter:
-                            ColorFilter.mode(iconColor, BlendMode.srcIn),
-                        height: iconSize,
-                        width: iconSize,
-                      )
-                    : SvgPicture.asset(
-                        showPasswordIcon,
-                        colorFilter:
-                            ColorFilter.mode(iconColor, BlendMode.srcIn),
-                        height: iconSize,
-                        width: iconSize,
-                      ),
-                splashColor: Colors.transparent,
-                onPressed: () =>
-                    ref.read(passwordProvider.notifier).toggleValue(),
-              ),
-            ),
-        ],
+          floatingLabelStyle: _labelStyle(
+            context,
+          ),
+          suffixIcon: !isPassword
+              ? null
+              : IconButton(
+                  hoverColor: Colors.transparent,
+                  icon: ref.watch(passwordProvider)
+                      ? SvgPicture.asset(
+                          hidePasswordIcon,
+                          colorFilter:
+                              ColorFilter.mode(iconColor, BlendMode.srcIn),
+                          height: iconSize,
+                          width: iconSize,
+                        )
+                      : SvgPicture.asset(
+                          showPasswordIcon,
+                          colorFilter:
+                              ColorFilter.mode(iconColor, BlendMode.srcIn),
+                          height: iconSize,
+                          width: iconSize,
+                        ),
+                  splashColor: Colors.transparent,
+                  onPressed: togglePassword,
+                ),
+        ),
+        readOnly: readOnly,
+        inputFormatters: inputFormatters,
+        obscureText: isPassword ? !ref.watch(passwordProvider) : isPassword,
+        scrollPadding: scrollPadding,
+        style: style,
+        autovalidateMode: autovalidateMode,
+        onTapOutside: onTapOutside,
+        minLines: minLines,
+        maxLines: maxLines,
+        validator: (value) {
+          //* Value null check:
+          if (value == null) {
+            return Swl.of(context).fieldRequired;
+          }
+
+          value = value.trim();
+
+          //* If non-required value is empty
+          if (!isRequired && value.isEmpty) {
+            return null;
+          }
+
+          //* Empty validation check:
+          if (value.isEmpty) {
+            return Swl.of(context).fieldRequired;
+          }
+
+          //* Email validation:
+          if (isEmail) {
+            if (!EmailValidator.validate(value)) {
+              return Swl.of(context).emailValidation;
+            }
+          }
+          //* Phone number validation:
+          if (isPhoneNumber) {
+            if (!RegExp(
+              r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$',
+            ).hasMatch(value)) {
+              return Swl.of(context).phoneNumberIsInvalid;
+            }
+          }
+          //* Password validation:
+          if (isPassword && (passwordValidation == null)) {
+            if (value.length < minimumPasswordLength) {
+              return Swl.of(context).passwordIsTooShort;
+            }
+          } else if (isPassword && (passwordValidation != null)) {
+            return passwordValidation!(value);
+          }
+          //* Custom validation
+          if (customValidation != null) {
+            return customValidation!(value);
+          }
+          return null;
+        },
       ),
     );
   }
@@ -246,6 +244,14 @@ class ValidatedTextFormField extends ConsumerWidget {
       return TextInputType.phone;
     } else {
       return TextInputType.text;
+    }
+  }
+
+  TextCapitalization _getTextCapitalization() {
+    if (isEmail || isPassword) {
+      return TextCapitalization.none;
+    } else {
+      return textCapitalization;
     }
   }
 }

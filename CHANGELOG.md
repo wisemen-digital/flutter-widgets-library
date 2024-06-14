@@ -1,3 +1,8 @@
+## 1.0.12
+
+* fixed password toggle misalign when error message is shown beneath `ValidatedTextFormField`
+* set TextCapitalization to none when `isEmail` or `isPassword` in `ValidatedTextFormField`
+
 ## 1.0.11
 
 * fixed labels not showing on Android in the `ValidatedTextFormField`
