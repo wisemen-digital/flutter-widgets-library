@@ -1,3 +1,8 @@
+## 1.0.11
+
+* fixed labels not showing on Android in the `ValidatedTextFormField`
+* fixed TextCapitalization bug in the `ValidatedTextFormField`
+
 ## 1.0.10
 
 * added maxLines to 1 in constructor for `ValidatedTextFormField`
