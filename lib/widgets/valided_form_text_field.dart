@@ -34,7 +34,7 @@ class ValidatedTextFormField extends ConsumerWidget {
     this.onChanged,
     this.disabled = false,
     this.initialValue,
-    this.textCapitalization = TextCapitalization.none,
+    this.textCapitalization = TextCapitalization.sentences,
     this.isRequired = true,
     this.focusNode,
     this.onEditingComplete,
@@ -56,7 +56,7 @@ class ValidatedTextFormField extends ConsumerWidget {
     this.iconSize = 19,
     this.label,
     this.labelStyle,
-    this.showAndroidLabel = false,
+    this.forceAndroidLabel = false,
     this.minLines,
     this.maxLines = 1,
   });
@@ -95,11 +95,14 @@ class ValidatedTextFormField extends ConsumerWidget {
   final double iconSize;
   final String? label;
   final TextStyle? labelStyle;
-  final bool showAndroidLabel;
+  final bool forceAndroidLabel;
   final int? minLines;
   final int? maxLines;
 
   bool get showCupertinoLabel => isIos && label != null && !showAndroidLabel;
+
+  bool get showAndroidLabel =>
+      (isAndroid && label != null && !showCupertinoLabel) || forceAndroidLabel;
 
   TextStyle? _labelStyle(BuildContext context) =>
       labelStyle ?? Theme.of(context).inputDecorationTheme.labelStyle;
@@ -131,11 +134,12 @@ class ValidatedTextFormField extends ConsumerWidget {
         children: [
           TextFormField(
             cursorColor: cursorColor,
-            keyboardType: keyboardType,
+            keyboardType: _getKeyboardType(),
+            textCapitalization: textCapitalization,
+            textInputAction: textInputAction,
             onFieldSubmitted: (text) => onFieldSubmitted?.call(text, ref),
             initialValue: initialValue,
             focusNode: focusNode,
-            textCapitalization: textCapitalization,
             enabled: !disabled,
             onEditingComplete: onEditingComplete,
             onChanged: onChanged,
@@ -152,7 +156,6 @@ class ValidatedTextFormField extends ConsumerWidget {
             ),
             readOnly: readOnly,
             inputFormatters: inputFormatters,
-            textInputAction: textInputAction,
             obscureText: isPassword ? !ref.watch(passwordProvider) : isPassword,
             scrollPadding: scrollPadding,
             style: style,
@@ -206,27 +209,43 @@ class ValidatedTextFormField extends ConsumerWidget {
             },
           ),
           if (isPassword && showObscureIcon)
-            IconButton(
-              hoverColor: Colors.transparent,
-              icon: ref.watch(passwordProvider)
-                  ? SvgPicture.asset(
-                      hidePasswordIcon,
-                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                      height: iconSize,
-                      width: iconSize,
-                    )
-                  : SvgPicture.asset(
-                      showPasswordIcon,
-                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                      height: iconSize,
-                      width: iconSize,
-                    ),
-              splashColor: Colors.transparent,
-              onPressed: () =>
-                  ref.read(passwordProvider.notifier).toggleValue(),
+            Positioned(
+              top: 20,
+              bottom: 0,
+              child: IconButton(
+                hoverColor: Colors.transparent,
+                icon: ref.watch(passwordProvider)
+                    ? SvgPicture.asset(
+                        hidePasswordIcon,
+                        colorFilter:
+                            ColorFilter.mode(iconColor, BlendMode.srcIn),
+                        height: iconSize,
+                        width: iconSize,
+                      )
+                    : SvgPicture.asset(
+                        showPasswordIcon,
+                        colorFilter:
+                            ColorFilter.mode(iconColor, BlendMode.srcIn),
+                        height: iconSize,
+                        width: iconSize,
+                      ),
+                splashColor: Colors.transparent,
+                onPressed: () =>
+                    ref.read(passwordProvider.notifier).toggleValue(),
+              ),
             ),
         ],
       ),
     );
+  }
+
+  TextInputType? _getKeyboardType() {
+    if (isEmail) {
+      return TextInputType.emailAddress;
+    } else if (isPhoneNumber) {
+      return TextInputType.phone;
+    } else {
+      return TextInputType.text;
+    }
   }
 }
