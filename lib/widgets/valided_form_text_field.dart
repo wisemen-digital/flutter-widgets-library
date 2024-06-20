@@ -40,7 +40,7 @@ class ValidatedTextFormField extends HookConsumerWidget {
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.inputFormatters,
-    this.keyboardType,
+    this.keyboardType = TextInputType.text,
     this.showPasswordIcon = Assets.eyeOn,
     this.hidePasswordIcon = Assets.eyeOff,
     this.showObscureIcon = true,
@@ -77,7 +77,7 @@ class ValidatedTextFormField extends HookConsumerWidget {
   final bool isRequired;
   final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;
-  final TextInputType? keyboardType;
+  final TextInputType keyboardType;
   final FutureOr<void> Function(String text, WidgetRef ref)? onFieldSubmitted;
   final FutureOr<void> Function()? onEditingComplete;
   final String showPasswordIcon;
@@ -243,7 +243,7 @@ class ValidatedTextFormField extends HookConsumerWidget {
     } else if (isPhoneNumber) {
       return TextInputType.phone;
     } else {
-      return TextInputType.text;
+      return keyboardType;
     }
   }
 

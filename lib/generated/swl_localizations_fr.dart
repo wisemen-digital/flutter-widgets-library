@@ -26,12 +26,10 @@ class SwlTempFr extends SwlTemp {
   String get close => 'Fermer';
 
   @override
-  String get networkErrorSomethingWentWrong =>
-      'Une erreur s\'est produite, veuillez réessayer plus tard.';
+  String get networkErrorSomethingWentWrong => 'Une erreur s\'est produite, veuillez réessayer plus tard.';
 
   @override
-  String get networkErrorNoInternetConnection =>
-      'Vérifiez votre connexion Internet.';
+  String get networkErrorNoInternetConnection => 'Vérifiez votre connexion Internet.';
 
   @override
   String get networkErrorNoAuthentication => 'Vous n\'êtes pas authentifié.';
@@ -40,20 +38,16 @@ class SwlTempFr extends SwlTemp {
   String get errorDefault => 'Une erreur s\'est produite';
 
   @override
-  String get internetConnectionError =>
-      'Vérifiez si vous avez une connexion réseau fonctionnelle.';
+  String get internetConnectionError => 'Vérifiez si vous avez une connexion réseau fonctionnelle.';
 
   @override
-  String get internetCertificateConnectionError =>
-      'Vous êtes connecté à un réseau non sécurisé.';
+  String get internetCertificateConnectionError => 'Vous êtes connecté à un réseau non sécurisé.';
 
   @override
-  String get internalServerError =>
-      'Quelque chose ne va pas avec le serveur. Veuillez réessayer ultérieurement.';
+  String get internalServerError => 'Quelque chose ne va pas avec le serveur. Veuillez réessayer ultérieurement.';
 
   @override
-  String get loginError =>
-      'Quelque chose s\'est mal passé lors de l\'authentification de l\'application, veuillez réessayer plus tard.';
+  String get loginError => 'Quelque chose s\'est mal passé lors de l\'authentification de l\'application, veuillez réessayer plus tard.';
 
   @override
   String get search => 'Rechercher';
@@ -74,8 +68,7 @@ class SwlTempFr extends SwlTemp {
   String get fieldRequired => 'Ce champ est requis';
 
   @override
-  String get passwordSubtext =>
-      'Le mot de passe doit contenir au moins 8 caractères, 1 chiffre et 1 symbole';
+  String get passwordSubtext => 'Le mot de passe doit contenir au moins 8 caractères, 1 chiffre et 1 symbole';
 
   @override
   String get emailValidation => 'L\'adresse e-mail est invalide';

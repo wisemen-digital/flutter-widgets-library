@@ -26,12 +26,10 @@ class SwlTempEs extends SwlTemp {
   String get close => 'Cerrar';
 
   @override
-  String get networkErrorSomethingWentWrong =>
-      'Algo salió mal, por favor inténtelo de nuevo más tarde.';
+  String get networkErrorSomethingWentWrong => 'Algo salió mal, por favor inténtelo de nuevo más tarde.';
 
   @override
-  String get networkErrorNoInternetConnection =>
-      'Verifique su conexión a Internet.';
+  String get networkErrorNoInternetConnection => 'Verifique su conexión a Internet.';
 
   @override
   String get networkErrorNoAuthentication => 'No está autenticado.';
@@ -40,20 +38,16 @@ class SwlTempEs extends SwlTemp {
   String get errorDefault => 'Algo salió mal.';
 
   @override
-  String get internetConnectionError =>
-      'Compruebe si tiene una conexión de red funcionando.';
+  String get internetConnectionError => 'Compruebe si tiene una conexión de red funcionando.';
 
   @override
-  String get internetCertificateConnectionError =>
-      'Está conectado a una red insegura.';
+  String get internetCertificateConnectionError => 'Está conectado a una red insegura.';
 
   @override
-  String get internalServerError =>
-      'Algo anda mal con el servidor. Por favor, inténtelo de nuevo más tarde.';
+  String get internalServerError => 'Algo anda mal con el servidor. Por favor, inténtelo de nuevo más tarde.';
 
   @override
-  String get loginError =>
-      'Algo salió mal al autenticar la aplicación, por favor inténtelo de nuevo más tarde.';
+  String get loginError => 'Algo salió mal al autenticar la aplicación, por favor inténtelo de nuevo más tarde.';
 
   @override
   String get search => 'Buscar';
@@ -74,8 +68,7 @@ class SwlTempEs extends SwlTemp {
   String get fieldRequired => 'Este campo es obligatorio';
 
   @override
-  String get passwordSubtext =>
-      'La contraseña debe contener al menos 8 caracteres, 1 dígito y 1 símbolo';
+  String get passwordSubtext => 'La contraseña debe contener al menos 8 caracteres, 1 dígito y 1 símbolo';
 
   @override
   String get emailValidation => 'El correo electrónico es inválido';

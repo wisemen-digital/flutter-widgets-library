@@ -26,12 +26,10 @@ class SwlTempNl extends SwlTemp {
   String get close => 'Sluiten';
 
   @override
-  String get networkErrorSomethingWentWrong =>
-      'Er is iets misgegaan, probeer het later opnieuw.';
+  String get networkErrorSomethingWentWrong => 'Er is iets misgegaan, probeer het later opnieuw.';
 
   @override
-  String get networkErrorNoInternetConnection =>
-      'Controleer uw internetverbinding.';
+  String get networkErrorNoInternetConnection => 'Controleer uw internetverbinding.';
 
   @override
   String get networkErrorNoAuthentication => 'U bent niet geauthenticeerd.';
@@ -40,20 +38,16 @@ class SwlTempNl extends SwlTemp {
   String get errorDefault => 'Er is iets misgegaan.';
 
   @override
-  String get internetConnectionError =>
-      'Controleer of u een werkende netwerkverbinding heeft.';
+  String get internetConnectionError => 'Controleer of u een werkende netwerkverbinding heeft.';
 
   @override
-  String get internetCertificateConnectionError =>
-      'U bent verbonden met een onveilig netwerk.';
+  String get internetCertificateConnectionError => 'U bent verbonden met een onveilig netwerk.';
 
   @override
-  String get internalServerError =>
-      'Er is iets mis met de server. Probeer het later opnieuw.';
+  String get internalServerError => 'Er is iets mis met de server. Probeer het later opnieuw.';
 
   @override
-  String get loginError =>
-      'Er is iets misgegaan bij het authenticeren van de app, probeer het later opnieuw.';
+  String get loginError => 'Er is iets misgegaan bij het authenticeren van de app, probeer het later opnieuw.';
 
   @override
   String get search => 'Zoeken';
@@ -74,8 +68,7 @@ class SwlTempNl extends SwlTemp {
   String get fieldRequired => 'Dit veld is verplicht';
 
   @override
-  String get passwordSubtext =>
-      'Het wachtwoord moet minstens 8 tekens, 1 cijfer en 1 symbool bevatten';
+  String get passwordSubtext => 'Het wachtwoord moet minstens 8 tekens, 1 cijfer en 1 symbool bevatten';
 
   @override
   String get emailValidation => 'E-mailadres is ongeldig';
