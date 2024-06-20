@@ -1,3 +1,7 @@
+## 1.0.13
+
+* fixed keyboardType in `ValidatedTextFormField`
+
 ## 1.0.12
 
 * fixed password toggle misalign when error message is shown beneath `ValidatedTextFormField`
