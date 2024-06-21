@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:conditional_wrap/conditional_wrap.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -59,6 +62,52 @@ class ValidatedTextFormField extends HookConsumerWidget {
     this.forceAndroidLabel = false,
     this.minLines,
     this.maxLines = 1,
+    this.withAutoCorrect = true,
+    this.autofillHints,
+    this.autofocus = false,
+    this.buildCounter,
+    this.canRequestFocus = true,
+    this.clipBehavior = Clip.hardEdge,
+    this.contentInsertionConfiguration,
+    this.contextMenuBuilder,
+    this.cursorErrorColor,
+    this.cursorHeight,
+    this.cursorWidth = 2.0,
+    this.cursorRadius,
+    this.cursorOpacityAnimates,
+    this.dragStartBehavior = DragStartBehavior.start,
+    this.enableIMEPersonalizedLearning = true,
+    this.enableInteractiveSelection,
+    this.enableSuggestions = true,
+    this.expands = false,
+    this.ignorePointers,
+    this.keyboardAppearance,
+    this.magnifierConfiguration,
+    this.maxLength,
+    this.maxLengthEnforcement,
+    this.mouseCursor,
+    this.obscuringCharacter = '•',
+    this.onAppPrivateCommand,
+    this.onSaved,
+    this.onTap,
+    this.onTapAlwaysCalled = false,
+    this.restorationId,
+    this.scribbleEnabled = true,
+    this.scrollController,
+    this.scrollPhysics,
+    this.selectionControls,
+    this.selectionHeightStyle = BoxHeightStyle.tight,
+    this.selectionWidthStyle = BoxWidthStyle.tight,
+    this.showCursor,
+    this.smartDashesType,
+    this.smartQuotesType,
+    this.spellCheckConfiguration,
+    this.statesController,
+    this.strutStyle,
+    this.textAlign = TextAlign.start,
+    this.textAlignVertical,
+    this.textDirection,
+    this.undoController,
   });
 
   final void Function(String)? onChanged;
@@ -98,6 +147,55 @@ class ValidatedTextFormField extends HookConsumerWidget {
   final bool forceAndroidLabel;
   final int? minLines;
   final int? maxLines;
+  final bool withAutoCorrect;
+  final Iterable<String>? autofillHints;
+  final bool autofocus;
+  final Widget? Function(BuildContext,
+      {required int currentLength,
+      required bool isFocused,
+      required int? maxLength})? buildCounter;
+  final bool canRequestFocus;
+  final Clip clipBehavior;
+  final ContentInsertionConfiguration? contentInsertionConfiguration;
+  final Widget Function(BuildContext, EditableTextState)? contextMenuBuilder;
+  final Color? cursorErrorColor;
+  final double? cursorHeight;
+  final double cursorWidth;
+  final Radius? cursorRadius;
+  final bool? cursorOpacityAnimates;
+  final DragStartBehavior dragStartBehavior;
+  final bool enableIMEPersonalizedLearning;
+  final bool? enableInteractiveSelection;
+  final bool enableSuggestions;
+  final bool expands;
+  final bool? ignorePointers;
+  final Brightness? keyboardAppearance;
+  final TextMagnifierConfiguration? magnifierConfiguration;
+  final int? maxLength;
+  final MaxLengthEnforcement? maxLengthEnforcement;
+  final MouseCursor? mouseCursor;
+  final String obscuringCharacter;
+  final void Function(String, Map<String, dynamic>)? onAppPrivateCommand;
+  final void Function(String?)? onSaved;
+  final void Function()? onTap;
+  final bool onTapAlwaysCalled;
+  final String? restorationId;
+  final bool scribbleEnabled;
+  final ScrollController? scrollController;
+  final ScrollPhysics? scrollPhysics;
+  final TextSelectionControls? selectionControls;
+  final BoxHeightStyle selectionHeightStyle;
+  final BoxWidthStyle selectionWidthStyle;
+  final bool? showCursor;
+  final SmartDashesType? smartDashesType;
+  final SmartQuotesType? smartQuotesType;
+  final SpellCheckConfiguration? spellCheckConfiguration;
+  final WidgetStatesController? statesController;
+  final StrutStyle? strutStyle;
+  final TextAlign textAlign;
+  final TextAlignVertical? textAlignVertical;
+  final TextDirection? textDirection;
+  final UndoHistoryController? undoController;
 
   bool get showCupertinoLabel => isIos && label != null && !showAndroidLabel;
 
@@ -135,6 +233,52 @@ class ValidatedTextFormField extends HookConsumerWidget {
         }
       },
       child: TextFormField(
+        cursorHeight: cursorHeight,
+        cursorWidth: cursorWidth,
+        cursorRadius: cursorRadius,
+        cursorOpacityAnimates: cursorOpacityAnimates,
+        dragStartBehavior: dragStartBehavior,
+        enableIMEPersonalizedLearning: enableIMEPersonalizedLearning,
+        enableInteractiveSelection: enableInteractiveSelection,
+        enableSuggestions: enableSuggestions,
+        expands: expands,
+        ignorePointers: ignorePointers,
+        keyboardAppearance: keyboardAppearance,
+        magnifierConfiguration: magnifierConfiguration,
+        maxLength: maxLength,
+        maxLengthEnforcement: maxLengthEnforcement,
+        mouseCursor: mouseCursor,
+        obscuringCharacter: obscuringCharacter,
+        onAppPrivateCommand: onAppPrivateCommand,
+        onSaved: onSaved,
+        onTap: onTap,
+        onTapAlwaysCalled: onTapAlwaysCalled,
+        restorationId: restorationId,
+        scribbleEnabled: scribbleEnabled,
+        scrollController: scrollController,
+        scrollPhysics: scrollPhysics,
+        selectionControls: selectionControls,
+        selectionHeightStyle: selectionHeightStyle,
+        selectionWidthStyle: selectionWidthStyle,
+        showCursor: showCursor,
+        smartDashesType: smartDashesType,
+        smartQuotesType: smartQuotesType,
+        spellCheckConfiguration: spellCheckConfiguration,
+        statesController: statesController,
+        strutStyle: strutStyle,
+        textAlign: textAlign,
+        textAlignVertical: textAlignVertical,
+        textDirection: textDirection,
+        undoController: undoController,
+        cursorErrorColor: cursorErrorColor,
+        contextMenuBuilder: contextMenuBuilder,
+        contentInsertionConfiguration: contentInsertionConfiguration,
+        clipBehavior: clipBehavior,
+        canRequestFocus: canRequestFocus,
+        buildCounter: buildCounter,
+        autofillHints: autofillHints,
+        autofocus: autofocus,
+        autocorrect: withAutoCorrect,
         cursorColor: cursorColor,
         keyboardType: _getKeyboardType(),
         textCapitalization: _getTextCapitalization(),
