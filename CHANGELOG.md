@@ -1,5 +1,9 @@
 ## 1.0.13
 
+* passed all possible parameters from `ValidatedTextFormField`
+
+## 1.0.13
+
 * fixed keyboardType in `ValidatedTextFormField`
 
 ## 1.0.12
