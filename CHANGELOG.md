@@ -1,3 +1,7 @@
+## 1.0.15
+
+* Added a `PlatformSearchBar` and created a `SearchAppBarScaffold` for use when needing a large AppBar with search.
+
 ## 1.0.14
 
 * passed all possible parameters from `ValidatedTextFormField`
