@@ -1,66 +1,87 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wisewidgetslibrary/constants/platform_constants.dart';
-import 'package:wisewidgetslibrary/s_core_localizations/s_core_localizations.dart';
+import 'package:wisewidgetslibrary/wise_widgets_library.dart';
 
 Future<DateTime?> showPlatformDatePicker({
   required BuildContext context,
   DateTime? selectedDate,
   DateTime? minDate,
   DateTime? maxDate,
-  Color? color,
-  Color? backgroundColor = Colors.white,
+  Color color = Colors.blue,
+  Color backgroundColor = Colors.white,
 }) async {
   DateTime? newDate;
-  newDate ??= DateTime.now();
-  var isChanged = false;
+  newDate ??= selectedDate;
 
   if (isIos) {
-    return showCupertinoModalPopup<DateTime?>(
+    // ignore: omit_local_variable_types
+    const double height = 450;
+    // ignore: omit_local_variable_types
+    const double maxWidth = 400;
+    const bottomPadding = 100;
+
+    return showDialog(
       context: context,
-      builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.3,
-        color: backgroundColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CupertinoButton(
-                  child: Text(Swl.of(context).cancel),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+      builder: (context) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Center(
+            child: Dialog(
+              insetPadding: pad20,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: maxWidth),
+                child: Container(
+                  height: height,
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: rad16,
+                  ),
+                  child: Padding(
+                    padding: pad16,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: height - bottomPadding,
+                          child: UIDatePicker(
+                            tintColor: color,
+                            date: selectedDate,
+                            minimumDate: minDate,
+                            maximumDate: maxDate,
+                            onChanged: (selectedDate) {
+                              newDate = selectedDate;
+                            },
+                          ),
+                        ),
+                        gapH16,
+                        PlatformButton(
+                          color: color,
+                          height: 48,
+                          cupertinoBorderRadius: rad25,
+                          child: Text(
+                            Swl.of(context).ok,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'CupertinoSystemDisplay',
+                              fontSize: 15,
+                              color: color.computeLuminance() > 0.5
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
+                          ),
+                          onPressed: () => Navigator.of(context).pop(newDate),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                CupertinoButton(
-                  child: Text(Swl.of(context).save),
-                  onPressed: () {
-                    if (!isChanged && selectedDate != null) {
-                      newDate = selectedDate;
-                    }
-                    Navigator.of(context).pop(newDate);
-                  },
-                ),
-              ],
-            ),
-            Flexible(
-              child: CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.date,
-                onDateTimeChanged: (selectedDate) {
-                  isChanged = true;
-                  newDate = selectedDate;
-                },
-                minimumDate: minDate,
-                maximumDate: maxDate,
-                initialDateTime: selectedDate,
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   } else {
     return showDatePicker(
