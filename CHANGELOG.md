@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Changed `platformButton` to specific constructors for text and child and only use the material style.
+
 ## 1.0.16
 
 * Changed `showPlatformDatePicker` to make use of the new iOS date picker style.
