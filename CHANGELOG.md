@@ -1,3 +1,7 @@
+## 1.0.16
+
+* Changed `showPlatformDatePicker` to make use of the new iOS date picker style.
+
 ## 1.0.15
 
 * Added a `PlatformSearchBar` and created a `SearchAppBarScaffold` for use when needing a large AppBar with search.

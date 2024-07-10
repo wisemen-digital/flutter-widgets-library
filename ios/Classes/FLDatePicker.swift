@@ -22,7 +22,7 @@ class FLDatePicker: NSObject, FlutterPlatformView {
     ) {
         let argsDict = args as! Dictionary<String, Any>;
         let picker = UIDatePicker(frame: frame)
-        picker.preferredDatePickerStyle = .compact
+        picker.preferredDatePickerStyle = .inline
         picker.datePickerMode = UIDatePicker.Mode(rawValue: argsDict["mode"] as! Int)!
         if let dateStr = argsDict["date"] as? String {
             picker.date = FLDatePicker.inDateFormatter.date(from: dateStr) ?? Date()
@@ -38,27 +38,6 @@ class FLDatePicker: NSObject, FlutterPlatformView {
         }
         if let localeStr = argsDict["locale"] as? String {
             picker.locale = Locale(identifier: localeStr)
-        }
-        if let backgroundColorStr = argsDict["backgroundColor"] as? String {
-            if let bgView = picker.subviews.first?.subviews.first?.subviews.first {
-                bgView.backgroundColor = UIColor(hexString: backgroundColorStr)
-                backgroundColor = bgView.backgroundColor
-            }
-        }
-        if let borderColorStr = argsDict["borderColor"] as? String {
-            if let bgView = picker.subviews.first?.subviews.first?.subviews.first {
-                bgView.layer.borderColor = UIColor(hexString: borderColorStr)?.cgColor
-            }
-        }
-        if let borderWidth = argsDict["borderWidth"] as? CGFloat {
-            if let bgView = picker.subviews.first?.subviews.first?.subviews.first {
-                bgView.layer.borderWidth = borderWidth
-            }
-        }
-        if let cornerRadius = argsDict["cornerRadius"] as? CGFloat {
-            if let bgView = picker.subviews.first?.subviews.first?.subviews.first {
-                bgView.layer.cornerRadius = cornerRadius
-            }
         }
         if let fontSize = argsDict["fontSize"] as? CGFloat {
             if let lblView = picker.subviews.first?.subviews.first?.subviews[1] {
