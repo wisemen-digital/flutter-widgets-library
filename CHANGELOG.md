@@ -1,5 +1,6 @@
 ## 1.0.16
 
+* Added Arabic translations
 * Changed `showPlatformDatePicker` to make use of the new iOS date picker style.
 
 ## 1.0.15
