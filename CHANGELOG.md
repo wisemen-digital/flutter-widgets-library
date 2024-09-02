@@ -1,3 +1,7 @@
+## 1.0.17
+
+* Changed `ValidatedTextFormField` to use `_defaultContextMenuBuilder` instead of null as default
+
 ## 1.0.16
 
 * Added Arabic translations
