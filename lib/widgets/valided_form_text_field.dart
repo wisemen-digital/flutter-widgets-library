@@ -69,7 +69,7 @@ class ValidatedTextFormField extends HookConsumerWidget {
     this.canRequestFocus = true,
     this.clipBehavior = Clip.hardEdge,
     this.contentInsertionConfiguration,
-    this.contextMenuBuilder,
+    this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.cursorErrorColor,
     this.cursorHeight,
     this.cursorWidth = 2.0,
@@ -150,10 +150,12 @@ class ValidatedTextFormField extends HookConsumerWidget {
   final bool withAutoCorrect;
   final Iterable<String>? autofillHints;
   final bool autofocus;
-  final Widget? Function(BuildContext,
-      {required int currentLength,
-      required bool isFocused,
-      required int? maxLength})? buildCounter;
+  final Widget? Function(
+    BuildContext, {
+    required int currentLength,
+    required bool isFocused,
+    required int? maxLength,
+  })? buildCounter;
   final bool canRequestFocus;
   final Clip clipBehavior;
   final ContentInsertionConfiguration? contentInsertionConfiguration;
@@ -397,5 +399,14 @@ class ValidatedTextFormField extends HookConsumerWidget {
     } else {
       return textCapitalization;
     }
+  }
+
+  static Widget _defaultContextMenuBuilder(
+    BuildContext context,
+    EditableTextState editableTextState,
+  ) {
+    return AdaptiveTextSelectionToolbar.editableText(
+      editableTextState: editableTextState,
+    );
   }
 }
