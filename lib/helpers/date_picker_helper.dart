@@ -59,7 +59,7 @@ Future<DateTime?> showPlatformDatePicker({
                         PlatformButton(
                           color: color,
                           height: 48,
-                          cupertinoBorderRadius: rad25,
+                          borderRadius: rad25,
                           child: Text(
                             Swl.of(context).ok,
                             style: TextStyle(
