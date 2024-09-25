@@ -1,3 +1,7 @@
+## 1.0.18
+
+* Changed `PlatformButton` to use `Material` instead of cupertinoButton. Button now has highlight instead of opacity.
+
 ## 1.0.17
 
 * Changed `ValidatedTextFormField` to use `_defaultContextMenuBuilder` instead of null as default

@@ -1,10 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wisewidgetslibrary/platform_widgets/platform_indicator.dart';
-import 'package:wisewidgetslibrary/platform_widgets/platform_widget.dart';
+import 'package:wisewidgetslibrary/constants/constants.dart';
+import 'package:wisewidgetslibrary/platform_widgets/platform_widgets.dart';
 
-class PlatformButton extends PlatformWidget<Widget, Widget> {
+class PlatformButton extends StatelessWidget {
   PlatformButton({
     super.key,
     this.text,
@@ -14,7 +12,6 @@ class PlatformButton extends PlatformWidget<Widget, Widget> {
     this.disabled = false,
     this.isLoading = false,
     this.borderRadius,
-    this.cupertinoBorderRadius,
     this.borderRadiusValue = 8,
     this.color = Colors.white,
     this.border,
@@ -27,10 +24,11 @@ class PlatformButton extends PlatformWidget<Widget, Widget> {
     this.boxShadow,
     this.height,
     this.width,
+    this.textAlign = TextAlign.center,
+    this.duration = const Duration(milliseconds: 300),
+    this.gradient,
   }) {
-    if (text == null && child == null) {
-      throw ArgumentError('Either the param text or content is required');
-    } else if (text != null && child != null) {
+    if (text != null && child != null) {
       throw ArgumentError(
         'Either the param text or content can be passed at a time.',
       );
@@ -44,7 +42,6 @@ class PlatformButton extends PlatformWidget<Widget, Widget> {
   final bool disabled;
   final bool isLoading;
   final BorderRadius? borderRadius;
-  final BorderRadius? cupertinoBorderRadius;
   final Color color;
   final BoxBorder? border;
   final int? maxLines;
@@ -57,165 +54,65 @@ class PlatformButton extends PlatformWidget<Widget, Widget> {
   final Color? disabledColor;
   final double borderRadiusValue;
   final List<BoxShadow>? boxShadow;
+  final TextAlign textAlign;
+  final Duration duration;
+  final Gradient? gradient;
 
   @override
-  Widget createCupertinoWidget(BuildContext context) {
-    var busy = false;
-    return Container(
-      height: height,
-      width: expand ? double.infinity : width,
-      margin: margin,
-      decoration: BoxDecoration(
-        border: border,
-        borderRadius: borderRadius ?? BorderRadius.circular(borderRadiusValue),
-        boxShadow: boxShadow,
-      ),
-      child: CupertinoButton(
-        padding: EdgeInsets.zero,
-        borderRadius: cupertinoBorderRadius ??
-            borderRadius ??
-            BorderRadius.circular(borderRadiusValue),
-        onPressed: !disabled && !isLoading
-            ? () async {
-                if (busy == false) {
-                  if (onPressed != null) {
-                    onPressed!();
-                    busy = true;
-                  }
-                  Future.delayed(
-                    const Duration(milliseconds: 500),
-                    () {
-                      busy = false;
-                    },
-                  );
-                }
-              }
-            : null,
-        color: color,
-        minSize: 0,
-        disabledColor: disabledColor ?? color.withOpacity(.4),
-        pressedOpacity: .8,
-        child: isLoading
-            ? Padding(
-                padding: padding,
-                child: SizedBox(
-                  height: 20,
-                  width: 20,
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: margin,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          splashFactory: isIos ? NoSplash.splashFactory : null,
+          onTap: !disabled && !isLoading ? onPressed : null,
+          borderRadius:
+              borderRadius ?? BorderRadius.circular(borderRadiusValue),
+          child: Ink(
+            height: height,
+            padding: padding,
+            width: expand ? double.infinity : width,
+            decoration: BoxDecoration(
+              border: border,
+              gradient: gradient,
+              color: !disabled && !isLoading && onPressed != null
+                  ? color
+                  : (disabledColor ?? color.withOpacity(.4)),
+              borderRadius:
+                  borderRadius ?? BorderRadius.circular(borderRadiusValue),
+              boxShadow: boxShadow,
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                AnimatedOpacity(
+                  duration: const Duration(
+                    milliseconds: 300,
+                  ),
+                  opacity: isLoading ? 0 : 1,
+                  child: child ??
+                      Text(
+                        text ?? '',
+                        style: textStyle,
+                        maxLines: maxLines,
+                        textAlign: textAlign,
+                      ),
+                ),
+                AnimatedOpacity(
+                  opacity: isLoading ? 1 : 0,
+                  duration: const Duration(
+                    milliseconds: 300,
+                  ),
                   child: PlatformLoadingIndicator(
                     color: loadingIndicatorColor ?? textStyle.color,
                   ),
                 ),
-              )
-            : Padding(
-                padding: padding,
-                child: text != null
-                    ? maxLines == null
-                        ? Text(
-                            text!,
-                            style: textStyle,
-                            textAlign: TextAlign.center,
-                          )
-                        : AutoSizeText(
-                            text!,
-                            style: textStyle,
-                            textAlign: TextAlign.center,
-                            maxLines: maxLines,
-                          )
-                    : child,
-              ),
-      ),
-    );
-  }
-
-  @override
-  Widget createMaterialWidget(BuildContext context) {
-    var busy = false;
-    return Container(
-      height: height,
-      width: expand ? double.infinity : width,
-      margin: margin,
-      decoration: BoxDecoration(
-        boxShadow: boxShadow,
-      ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          borderRadius:
-              borderRadius ?? BorderRadius.circular(borderRadiusValue),
-          onTap: !disabled && !isLoading
-              ? () async {
-                  if (busy == false) {
-                    if (onPressed != null) {
-                      onPressed!();
-                      busy = true;
-                    }
-                    Future.delayed(
-                      const Duration(milliseconds: 500),
-                      () {
-                        busy = false;
-                      },
-                    );
-                  }
-                }
-              : null,
-          child: Ink(
-            decoration: BoxDecoration(
-              border: border,
-              color: disabled || isLoading
-                  ? disabledColor ?? color.withOpacity(.4)
-                  : color,
-              borderRadius: borderRadius,
+              ],
             ),
-            child: isLoading
-                ? Padding(
-                    padding: padding,
-                    child: SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Center(
-                        child: PlatformLoadingIndicator(
-                          color: loadingIndicatorColor ?? textStyle.color,
-                        ),
-                      ),
-                    ),
-                  )
-                : Padding(
-                    padding: padding,
-                    child: text != null
-                        ? maxLines == null
-                            ? Text(
-                                text!,
-                                style: textStyle,
-                                textAlign: TextAlign.center,
-                              )
-                            : AutoSizeText(
-                                text!,
-                                style: textStyle,
-                                textAlign: TextAlign.center,
-                                maxLines: maxLines,
-                              )
-                        : child,
-                  ),
           ),
         ),
       ),
     );
   }
-}
-
-class PlatformButtonInstance extends PlatformButton {
-  PlatformButtonInstance({
-    super.key,
-    super.text,
-    super.child,
-    super.onPressed,
-    super.disabled = false,
-    super.isLoading = false,
-    super.borderRadius,
-    super.border,
-    super.maxLines,
-    super.loadingIndicatorColor,
-    super.expand,
-    super.padding,
-  });
 }
