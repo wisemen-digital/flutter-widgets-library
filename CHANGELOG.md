@@ -1,3 +1,7 @@
+## 1.0.19
+
+* Updated `FullscreenImageCarousel` to have swipe to dismiss functionality
+
 ## 1.0.18
 
 * Changed `PlatformButton` to use `Material` instead of cupertinoButton. Button now has highlight instead of opacity.
