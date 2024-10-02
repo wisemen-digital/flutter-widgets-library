@@ -17,10 +17,7 @@ class CustomImageCarousel extends ConsumerWidget {
     this.maxScale,
     this.heroTag,
     super.key,
-  }) : assert(
-          imageProviders != null || imageUrls != null,
-          'Either imageProviders or imageUrls must be provided',
-        );
+  });
 
   final Map<DismissiblePageDismissDirection, double>? dismissThresholds;
   final List<ImageProvider<Object>>? imageProviders;

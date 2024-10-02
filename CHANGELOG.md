@@ -1,3 +1,8 @@
+## 1.0.20
+
+* Fixed issue where not all parameters could be parsed to `FullscreenImageCarousel`
+* Added two extra constructors for extra functionality options `FullscreenImageCarousel`
+
 ## 1.0.19
 
 * Updated `FullscreenImageCarousel` to have swipe to dismiss functionality
