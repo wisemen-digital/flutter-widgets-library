@@ -1,22 +1,11 @@
+// ignore_for_file: inference_failure_on_function_invocation
+
+import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:wisewidgetslibrary/widgets/custom_image_carousel.dart';
 
-part 'fullscreen_image_carousel.g.dart';
-
-@riverpod
-class Zoomed extends _$Zoomed {
-  @override
-  bool build() {
-    return false;
-  }
-
-  // ignore: avoid_positional_boolean_parameters
-  bool changeValue(bool val) => state = val;
-}
-
-class FullscreenImageCarousel extends StatefulWidget {
+class FullscreenImageCarousel extends ConsumerStatefulWidget {
   // Basic constructor
   const FullscreenImageCarousel.basic({
     required this.imageProviders,
@@ -24,6 +13,11 @@ class FullscreenImageCarousel extends StatefulWidget {
     super.key,
     this.errorWidget,
     this.initialPage,
+    this.heroTag,
+    this.maxScale,
+    this.photoViewBackgroundColor,
+    this.dismissTresholds,
+    this.dismissDirection,
   }) : complexChild = null;
 
   // Complex constructor
@@ -33,27 +27,40 @@ class FullscreenImageCarousel extends StatefulWidget {
     super.key,
     this.errorWidget,
     this.initialPage,
+    this.heroTag,
+    this.maxScale,
+    this.photoViewBackgroundColor,
+    this.dismissTresholds,
+    this.dismissDirection,
   }) : child = null;
+
   final List<ImageProvider<Object>> imageProviders;
   final Widget? child;
-  final Widget Function(void Function(int initalPage) openCarousel)?
+  final Widget Function(void Function(int initialPage) openCarousel)?
       complexChild;
   final Widget? errorWidget;
   final int? initialPage;
+  final String? heroTag;
+  final double? maxScale;
+  final Color? photoViewBackgroundColor;
+  final Map<DismissiblePageDismissDirection, double>? dismissTresholds;
+  final DismissiblePageDismissDirection? dismissDirection;
 
   @override
-  State<FullscreenImageCarousel> createState() =>
-      _FullscreenImageCarouselWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _FullscreenImageCarouselState();
 }
 
-class _FullscreenImageCarouselWidgetState
-    extends State<FullscreenImageCarousel> {
+class _FullscreenImageCarouselState
+    extends ConsumerState<FullscreenImageCarousel> {
   PageController controller = PageController();
+  int currentPage = 0;
 
   @override
   void initState() {
     super.initState();
     controller = PageController(initialPage: widget.initialPage ?? 0);
+    currentPage = widget.initialPage ?? 0;
   }
 
   @override
@@ -64,69 +71,28 @@ class _FullscreenImageCarouselWidgetState
 
   @override
   Widget build(BuildContext context) {
-    void openCarousel({int initalPage = 0}) {
-      controller = PageController(initialPage: initalPage);
-      Navigator.push(
-        context,
-        PageRouteBuilder<dynamic>(
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-          pageBuilder: (BuildContext context, _, __) => Scaffold(
-            backgroundColor: Colors.black,
-            body: Consumer(
-              builder: (context, ref, child) {
-                return PageView.builder(
-                  controller: controller,
-                  physics: ref.watch(zoomedProvider)
-                      ? const NeverScrollableScrollPhysics()
-                      : null,
-                  itemCount: widget.imageProviders.length,
-                  itemBuilder: (context, index) => PhotoView(
-                    errorBuilder: (context, error, stackTrace) =>
-                        GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: widget.errorWidget ??
-                          const Center(
-                            child: Material(
-                              type: MaterialType.transparency,
-                              child: Text(
-                                'Failed to load image',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                    ),
-                    imageProvider: widget.imageProviders[index],
-                    onTapUp: (context, details, controllerValue) {
-                      Navigator.pop(context);
-                    },
-                    scaleStateChangedCallback: (value) {
-                      if (value == PhotoViewScaleState.initial ||
-                          value == PhotoViewScaleState.zoomedOut) {
-                        ref.read(zoomedProvider.notifier).changeValue(false);
-                      }
-                      if (value == PhotoViewScaleState.covering ||
-                          value == PhotoViewScaleState.zoomedIn) {
-                        ref.read(zoomedProvider.notifier).changeValue(true);
-                      }
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
+    void openCarousel({
+      int initialPage = 0,
+    }) {
+      controller = PageController(initialPage: initialPage);
+      context.pushTransparentRoute(
+        CustomImageCarousel(
+          photoViewBackgroundColor: widget.photoViewBackgroundColor,
+          dismissThresholds: widget.dismissTresholds,
+          dismissDirection: widget.dismissDirection,
+          imageProviders: widget.imageProviders,
+          errorWidget: widget.errorWidget,
+          maxScale: widget.maxScale,
+          initialPage: initialPage,
+          heroTag: widget.heroTag,
+          controller: controller,
         ),
       );
     }
 
     if (widget.complexChild != null) {
-      return widget.complexChild!((int initalPage) {
-        openCarousel(initalPage: initalPage);
+      return widget.complexChild!((int initialPage) {
+        openCarousel(initialPage: initialPage);
       });
     }
 
