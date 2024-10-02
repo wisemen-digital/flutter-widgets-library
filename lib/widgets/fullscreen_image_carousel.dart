@@ -18,7 +18,8 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.photoViewBackgroundColor,
     this.dismissTresholds,
     this.dismissDirection,
-  }) : complexChild = null;
+  })  : complexChild = null,
+        imageUrls = null;
 
   // Complex constructor
   const FullscreenImageCarousel.complex({
@@ -32,9 +33,41 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.photoViewBackgroundColor,
     this.dismissTresholds,
     this.dismissDirection,
-  }) : child = null;
+  })  : child = null,
+        imageUrls = null;
 
-  final List<ImageProvider<Object>> imageProviders;
+  // Basic constructor with urls
+  const FullscreenImageCarousel.basicWithUrls({
+    required this.imageUrls,
+    required this.child,
+    super.key,
+    this.errorWidget,
+    this.initialPage,
+    this.heroTag,
+    this.maxScale,
+    this.photoViewBackgroundColor,
+    this.dismissTresholds,
+    this.dismissDirection,
+  })  : complexChild = null,
+        imageProviders = null;
+
+  // Complex constructor with urls
+  const FullscreenImageCarousel.complexWithUrls({
+    required this.imageUrls,
+    required this.complexChild,
+    super.key,
+    this.errorWidget,
+    this.initialPage,
+    this.heroTag,
+    this.maxScale,
+    this.photoViewBackgroundColor,
+    this.dismissTresholds,
+    this.dismissDirection,
+  })  : child = null,
+        imageProviders = null;
+
+  final List<ImageProvider<Object>>? imageProviders;
+  final List<String>? imageUrls;
   final Widget? child;
   final Widget Function(void Function(int initialPage) openCarousel)?
       complexChild;
@@ -82,6 +115,7 @@ class _FullscreenImageCarouselState
           dismissDirection: widget.dismissDirection,
           imageProviders: widget.imageProviders,
           errorWidget: widget.errorWidget,
+          imageUrls: widget.imageUrls,
           maxScale: widget.maxScale,
           initialPage: initialPage,
           heroTag: widget.heroTag,
