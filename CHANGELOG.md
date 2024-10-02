@@ -1,3 +1,7 @@
+## 1.0.21
+
+* Updated basic child to accept and us intialPage if provided for `FullscreenImageCarousel`
+
 ## 1.0.20
 
 * Fixed issue where not all parameters could be parsed to `FullscreenImageCarousel`

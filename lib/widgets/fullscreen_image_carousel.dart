@@ -131,7 +131,7 @@ class _FullscreenImageCarouselState
     }
 
     return GestureDetector(
-      onTap: openCarousel,
+      onTap: () => openCarousel(initialPage: widget.initialPage ?? 0),
       child: widget.child ?? const SizedBox(),
     );
   }
