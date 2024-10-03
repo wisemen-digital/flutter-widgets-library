@@ -1,3 +1,7 @@
+## 1.0.23
+
+* Fixed issue where imageCarousel would cause an `double can't be assigned to int` error for `FullscreenImageCarousel`
+
 ## 1.0.22
 
 * Added close button to `FullscreenImageCarousel`

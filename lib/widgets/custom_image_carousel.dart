@@ -85,7 +85,6 @@ class CustomImageCarousel extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ValueNotifier<double> backgroundOpacity = useState(1.0);
     ValueNotifier<bool> isDragging = useState(false);
     ValueNotifier<bool> isZoomed = useState(false);
     ValueNotifier<int> currentPage = useState(0);
@@ -93,7 +92,7 @@ class CustomImageCarousel extends HookConsumerWidget {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         controller.addListener(() {
-          currentPage.value = controller.page!.round().toInt();
+          currentPage.value = controller.page!.round();
         });
       },
     );
@@ -105,7 +104,6 @@ class CustomImageCarousel extends HookConsumerWidget {
           DismissiblePage(
             onDismissed: () => Navigator.of(context).pop(),
             onDragUpdate: (value) {
-              backgroundOpacity.value = value.opacity;
               if (value.overallDragValue > 0.0) {
                 isDragging.value = true;
               } else {
@@ -183,8 +181,7 @@ class CustomImageCarousel extends HookConsumerWidget {
                         decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(CLOSE_ICON_SIZE / 2),
-                          color: CLOSE_ICON_BACKGROUND_COLOR
-                              .withOpacity(backgroundOpacity.value),
+                          color: CLOSE_ICON_BACKGROUND_COLOR,
                         ),
                         child: const Icon(
                           Icons.close,
@@ -215,8 +212,7 @@ class CustomImageCarousel extends HookConsumerWidget {
                       padding: PAGE_INDICATOR_PADDING,
                       decoration: BoxDecoration(
                         borderRadius: PAGE_INDICATOR_BORDER_RADIUS,
-                        color: PAGE_INDICATOR_BACKGROUND_COLOR
-                            .withOpacity(backgroundOpacity.value),
+                        color: PAGE_INDICATOR_BACKGROUND_COLOR,
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
