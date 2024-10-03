@@ -16,6 +16,27 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.heroTag,
     this.maxScale,
     this.photoViewBackgroundColor,
+    this.showPageIndicator = true,
+    this.showCloseButton = true,
+    this.extraChildren = const [],
+    this.currentPageTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.pageIndicatorSeperatorTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.totalAmountOfPagesTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
     this.dismissTresholds,
     this.dismissDirection,
   })  : complexChild = null,
@@ -31,6 +52,27 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.heroTag,
     this.maxScale,
     this.photoViewBackgroundColor,
+    this.showPageIndicator = true,
+    this.showCloseButton = true,
+    this.extraChildren = const [],
+    this.currentPageTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.pageIndicatorSeperatorTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.totalAmountOfPagesTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
     this.dismissTresholds,
     this.dismissDirection,
   })  : child = null,
@@ -46,6 +88,27 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.heroTag,
     this.maxScale,
     this.photoViewBackgroundColor,
+    this.showPageIndicator = true,
+    this.showCloseButton = true,
+    this.extraChildren = const [],
+    this.currentPageTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.pageIndicatorSeperatorTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.totalAmountOfPagesTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
     this.dismissTresholds,
     this.dismissDirection,
   })  : complexChild = null,
@@ -61,6 +124,27 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.heroTag,
     this.maxScale,
     this.photoViewBackgroundColor,
+    this.showPageIndicator = true,
+    this.showCloseButton = true,
+    this.extraChildren = const [],
+    this.currentPageTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.pageIndicatorSeperatorTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
+    this.totalAmountOfPagesTextstyle = const TextStyle(
+      fontFamily: 'CupertinoSystemDisplay',
+      fontWeight: FontWeight.w600,
+      color: Colors.grey,
+      fontSize: 16,
+    ),
     this.dismissTresholds,
     this.dismissDirection,
   })  : child = null,
@@ -78,6 +162,12 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
   final Color? photoViewBackgroundColor;
   final Map<DismissiblePageDismissDirection, double>? dismissTresholds;
   final DismissiblePageDismissDirection? dismissDirection;
+  final bool showPageIndicator;
+  final bool showCloseButton;
+  final List<Widget> extraChildren;
+  final TextStyle currentPageTextstyle;
+  final TextStyle pageIndicatorSeperatorTextstyle;
+  final TextStyle totalAmountOfPagesTextstyle;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -114,6 +204,13 @@ class _FullscreenImageCarouselState
           dismissThresholds: widget.dismissTresholds,
           dismissDirection: widget.dismissDirection,
           imageProviders: widget.imageProviders,
+          extraChildren: widget.extraChildren,
+          showPageIndicator: widget.showPageIndicator,
+          showCloseButton: widget.showCloseButton,
+          currentPageTextstyle: widget.currentPageTextstyle,
+          pageIndicatorSeperatorTextstyle:
+              widget.pageIndicatorSeperatorTextstyle,
+          totalAmountOfPagesTextstyle: widget.totalAmountOfPagesTextstyle,
           errorWidget: widget.errorWidget,
           imageUrls: widget.imageUrls,
           maxScale: widget.maxScale,

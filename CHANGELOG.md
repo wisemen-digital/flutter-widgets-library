@@ -1,3 +1,9 @@
+## 1.0.22
+
+* Added close button to `FullscreenImageCarousel`
+* Added page indicator to `FullscreenImageCarousel`
+* Made it possible to add custom widgets to `FullscreenImageCarousel` overlay
+
 ## 1.0.21
 
 * Updated basic child to accept and us intialPage if provided for `FullscreenImageCarousel`
