@@ -1,3 +1,7 @@
+## 1.0.24
+
+* Improved UX for `FullscreenImageCarousel`. Made scrolling more smooth.
+
 ## 1.0.23
 
 * Fixed issue where imageCarousel would cause an `double can't be assigned to int` error for `FullscreenImageCarousel`

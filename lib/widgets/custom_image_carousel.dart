@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 class CustomImageCarousel extends HookConsumerWidget {
   const CustomImageCarousel({
@@ -30,6 +31,7 @@ class CustomImageCarousel extends HookConsumerWidget {
       color: Colors.grey,
       fontSize: 16,
     ),
+    this.enableRotation = false,
     this.dismissThresholds,
     this.dismissDirection,
     this.imageProviders,
@@ -52,6 +54,7 @@ class CustomImageCarousel extends HookConsumerWidget {
   final bool showPageIndicator;
   final bool showCloseButton;
   final Widget? errorWidget;
+  final bool enableRotation;
   final int? initialPage;
 
   /// Defaults to `DismissiblePageDismissDirection.multi`
@@ -85,9 +88,9 @@ class CustomImageCarousel extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ValueNotifier<int> currentPage = useState(initialPage ?? 0);
     ValueNotifier<bool> isDragging = useState(false);
     ValueNotifier<bool> isZoomed = useState(false);
-    ValueNotifier<int> currentPage = useState(0);
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
@@ -103,6 +106,7 @@ class CustomImageCarousel extends HookConsumerWidget {
         children: [
           DismissiblePage(
             onDismissed: () => Navigator.of(context).pop(),
+            disabled: isZoomed.value,
             onDragUpdate: (value) {
               if (value.overallDragValue > 0.0) {
                 isDragging.value = true;
@@ -116,18 +120,49 @@ class CustomImageCarousel extends HookConsumerWidget {
                 {
                   DismissiblePageDismissDirection.multi: .2,
                 },
-            child: PageView.builder(
-              controller: controller,
+            minScale: 1.0,
+            child: PhotoViewGallery.builder(
+              pageController: controller,
+              enableRotation: enableRotation,
+              scaleStateChangedCallback: (value) {
+                if (value == PhotoViewScaleState.initial ||
+                    value == PhotoViewScaleState.zoomedOut) {
+                  isZoomed.value = false;
+                }
+                if (value == PhotoViewScaleState.covering ||
+                    value == PhotoViewScaleState.zoomedIn) {
+                  isZoomed.value = true;
+                }
+              },
+              onPageChanged: (index) {
+                currentPage.value = index;
+              },
               itemCount: (imageProviders ?? imageUrls)!.length,
-              itemBuilder: (context, index) => PhotoView(
-                backgroundDecoration: BoxDecoration(
-                  color: photoViewBackgroundColor ?? Colors.transparent,
-                ),
+              backgroundDecoration: BoxDecoration(
+                color: photoViewBackgroundColor ?? Colors.transparent,
+              ),
+              builder: (context, index) => PhotoViewGalleryPageOptions(
+                imageProvider: imageProviders?[index] ??
+                    CachedNetworkImageProvider(
+                      imageUrls![index],
+                    ),
+                minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * (maxScale ?? 2.0),
                 heroAttributes: PhotoViewHeroAttributes(
                   tag:
                       heroTag ?? (imageProviders ?? imageUrls)![index].hashCode,
                 ),
+                scaleStateCycle: (value) {
+                  if (value == PhotoViewScaleState.initial ||
+                      value == PhotoViewScaleState.zoomedOut) {
+                    isZoomed.value = false;
+                  }
+                  if (value == PhotoViewScaleState.covering ||
+                      value == PhotoViewScaleState.zoomedIn) {
+                    isZoomed.value = true;
+                  }
+                  return value;
+                },
                 errorBuilder: (context, error, stackTrace) => GestureDetector(
                   onTap: () => Navigator.of(context).pop(),
                   child: errorWidget ??
@@ -143,20 +178,6 @@ class CustomImageCarousel extends HookConsumerWidget {
                         ),
                       ),
                 ),
-                imageProvider: imageProviders?[index] ??
-                    CachedNetworkImageProvider(
-                      imageUrls![index],
-                    ),
-                scaleStateChangedCallback: (value) {
-                  if (value == PhotoViewScaleState.initial ||
-                      value == PhotoViewScaleState.zoomedOut) {
-                    isZoomed.value = false;
-                  }
-                  if (value == PhotoViewScaleState.covering ||
-                      value == PhotoViewScaleState.zoomedIn) {
-                    isZoomed.value = true;
-                  }
-                },
               ),
             ),
           ),
