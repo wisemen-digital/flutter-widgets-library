@@ -18,6 +18,7 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.photoViewBackgroundColor,
     this.showPageIndicator = true,
     this.showCloseButton = true,
+    this.enableRotation = false,
     this.extraChildren = const [],
     this.currentPageTextstyle = const TextStyle(
       fontFamily: 'CupertinoSystemDisplay',
@@ -54,6 +55,7 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.photoViewBackgroundColor,
     this.showPageIndicator = true,
     this.showCloseButton = true,
+    this.enableRotation = false,
     this.extraChildren = const [],
     this.currentPageTextstyle = const TextStyle(
       fontFamily: 'CupertinoSystemDisplay',
@@ -90,6 +92,7 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.photoViewBackgroundColor,
     this.showPageIndicator = true,
     this.showCloseButton = true,
+    this.enableRotation = false,
     this.extraChildren = const [],
     this.currentPageTextstyle = const TextStyle(
       fontFamily: 'CupertinoSystemDisplay',
@@ -126,6 +129,7 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
     this.photoViewBackgroundColor,
     this.showPageIndicator = true,
     this.showCloseButton = true,
+    this.enableRotation = false,
     this.extraChildren = const [],
     this.currentPageTextstyle = const TextStyle(
       fontFamily: 'CupertinoSystemDisplay',
@@ -166,6 +170,7 @@ class FullscreenImageCarousel extends ConsumerStatefulWidget {
   final bool showCloseButton;
   final List<Widget> extraChildren;
   final TextStyle currentPageTextstyle;
+  final bool enableRotation;
   final TextStyle pageIndicatorSeperatorTextstyle;
   final TextStyle totalAmountOfPagesTextstyle;
 
@@ -207,6 +212,7 @@ class _FullscreenImageCarouselState
           extraChildren: widget.extraChildren,
           showPageIndicator: widget.showPageIndicator,
           showCloseButton: widget.showCloseButton,
+          enableRotation: widget.enableRotation,
           currentPageTextstyle: widget.currentPageTextstyle,
           pageIndicatorSeperatorTextstyle:
               widget.pageIndicatorSeperatorTextstyle,
