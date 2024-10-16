@@ -1,5 +1,7 @@
 import 'swl_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Japanese (`ja`).
 class SwlTempJa extends SwlTemp {
   SwlTempJa([String locale = 'ja']) : super(locale);
