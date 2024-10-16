@@ -1,3 +1,7 @@
+## 1.0.25
+
+* [BUGFIX] Pushed overlooked file from 1.0.24
+
 ## 1.0.24
 
 * Improved UX for `FullscreenImageCarousel`. Made scrolling more smooth.
