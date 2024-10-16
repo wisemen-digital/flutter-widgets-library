@@ -13,6 +13,7 @@ class AnimatedClipRect extends StatefulWidget {
     this.curve = Curves.easeInOut,
     this.reverseCurve,
     this.animationBehavior = AnimationBehavior.normal,
+    this.clipBehavior = Clip.hardEdge,
   });
   @override
   // ignore: library_private_types_in_public_api
@@ -27,6 +28,7 @@ class AnimatedClipRect extends StatefulWidget {
   final Duration? reverseDuration;
   final Curve curve;
   final Curve? reverseCurve;
+  final Clip clipBehavior;
 
   ///The behavior of the controller when AccessibilityFeatures.disableAnimations is true.
   final AnimationBehavior animationBehavior;
@@ -69,6 +71,7 @@ class _AnimatedClipRectState extends State<AnimatedClipRect>
         : _animationController.reverse();
 
     return ClipRect(
+      clipBehavior: widget.clipBehavior,
       child: AnimatedBuilder(
         animation: _animationController,
         builder: (_, child) {

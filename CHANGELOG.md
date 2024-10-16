@@ -1,6 +1,7 @@
 ## 1.0.24
 
 * Improved UX for `FullscreenImageCarousel`. Made scrolling more smooth.
+* Added clipBehavior parameter to `AnimatedClipRect`
 
 ## 1.0.23
 
