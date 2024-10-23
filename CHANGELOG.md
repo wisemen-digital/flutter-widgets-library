@@ -1,3 +1,7 @@
+## 1.0.26
+
+* [BUGFIX] Make platform date picker work on iOS when 12hr clock is selected
+
 ## 1.0.25
 
 * [BUGFIX] Pushed overlooked file from 1.0.24
