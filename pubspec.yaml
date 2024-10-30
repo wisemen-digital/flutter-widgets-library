@@ -1,6 +1,6 @@
 name: wisewidgetslibrary
 description: Wisemen widgets library containing platform specific widgets and other commonly useful widgets.
-version: 1.0.26
+version: 1.0.27
 homepage: https://github.com/wisemen-digital/flutter-widgets-library
 repository: https://github.com/wisemen-digital/flutter-widgets-library
 
@@ -27,14 +27,14 @@ dependencies:
 
   # UI
   auto_size_text: ^3.0.0
-  pull_down_button: ^0.9.4
+  pull_down_button: ^0.10.2
   sliver_tools: ^0.2.12
   
   # Extensions
   collection: ^1.18.0
   
   # Validation
-  email_validator: ^2.1.17
+  email_validator: ^3.0.0
 
   # Riverpod
   hooks_riverpod: ^2.5.1
@@ -59,15 +59,15 @@ dev_dependencies:
     sdk: flutter
 
   # Static analysis & linting
-  flutter_lints: ^4.0.0
-  custom_lint: ^0.6.8
+  flutter_lints: ^5.0.0
+  custom_lint: ^0.7.0
   dependency_validator: ^4.1.1
 
   # Data
   json_serializable: ^6.7.1
 
   # Riverpod
-  riverpod_generator: ^2.4.0
+  riverpod_generator: ^2.6.2
 
 flutter:
   uses-material-design: true
