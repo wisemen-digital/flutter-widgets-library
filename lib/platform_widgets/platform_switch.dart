@@ -9,11 +9,15 @@ class PlatformSwitch extends PlatformWidget<CupertinoSwitch, Switch> {
     required this.onChanged,
     super.key,
     this.activeColor,
+    this.inactiveColor,
   });
   final bool value;
   // ignore: avoid_positional_boolean_parameters
   final void Function(bool) onChanged;
   final Color? activeColor;
+
+  /// Border and track color on Android when the switch is off.
+  final Color? inactiveColor;
 
   @override
   CupertinoSwitch createCupertinoWidget(BuildContext context) =>
@@ -28,5 +32,11 @@ class PlatformSwitch extends PlatformWidget<CupertinoSwitch, Switch> {
         value: value,
         onChanged: onChanged,
         activeColor: activeColor,
+        inactiveThumbColor: inactiveColor,
+        trackOutlineColor: value
+            ? null
+            : WidgetStatePropertyAll(
+                inactiveColor,
+              ),
       );
 }

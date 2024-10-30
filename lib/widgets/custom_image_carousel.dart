@@ -120,7 +120,7 @@ class CustomImageCarousel extends HookConsumerWidget {
                 {
                   DismissiblePageDismissDirection.multi: .2,
                 },
-            minScale: 1.0,
+            minScale: 1,
             child: PhotoViewGallery.builder(
               pageController: controller,
               enableRotation: enableRotation,
