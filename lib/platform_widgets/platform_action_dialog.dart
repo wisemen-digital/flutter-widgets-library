@@ -32,10 +32,10 @@ class PlatformActionDialog
             },
           ),
         ),
-        cancelButton: CupertinoButton(
+        cancelButton: CupertinoActionSheetAction(
+          isDestructiveAction: true,
           child: Text(
             Swl.of(context).cancel,
-            style: const TextStyle(color: Colors.red),
           ),
           onPressed: () {
             Navigator.pop(context);
