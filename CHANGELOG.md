@@ -1,3 +1,7 @@
+## 1.0.29
+
+* [BUGFIX] Fixed `cancel` button not working inside CupertinoActionSheet
+
 ## 1.0.26
 
 * [BUGFIX] Make platform date picker work on iOS when 12hr clock is selected
